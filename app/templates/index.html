@@ -7,7 +7,9 @@
     <br>
     {% endif %}
     {% for band in bands %}
-     <p>   {{ band.band_name }} // votes: {{ band.votes }} // reports: {{ band.reports }} // blacklisted? {{ band.blacklisted }} // whitelisted? {{ band.whitelisted }} </p>
+<p>   {{ band.band_name }} // votes: {{ band.votes }} // reports: {{ band.reports }} // blacklisted? {{ band.blacklisted }} // whitelisted? {{ band.whitelisted }} // <a href="{{ url_for('main.upvote', band_id=band.id) }}"> UPVOTE ^^ </a> // <a href="{{ url_for('main.report', band_id=band.id) }}"> REPORT </a> </p>
+
+
     {% endfor %}
 
 {% endblock %}
