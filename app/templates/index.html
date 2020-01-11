@@ -6,10 +6,35 @@
     {{ wtf.quick_form(form) }}
     <br>
     {% endif %}
+<h3 style="text-align:center;font-size:2.5vh;color:white;">Need a band name? How about...</h3>
+
     {% for band in bands %}
-<p>   {{ band.band_name }} // votes: {{ band.votes }} // reports: {{ band.reports }} // blacklisted? {{ band.blacklisted }} // whitelisted? {{ band.whitelisted }} // <a href="{{ url_for('main.upvote', band_id=band.id) }}"> UPVOTE ^^ </a> // <a href="{{ url_for('main.report', band_id=band.id) }}"> REPORT </a> </p>
-
-
+<div class="container-fluid">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8 text-center"
+         style="background-color:#111;text-align:center;font-size:3vh;color:white;border:2px solid black">{{
+        band.band_name }}
+    </div>
+    <div class="col-xs-2"></div>
+</div>
+{% if show_buttons %}
+<div class="container-fluid">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4 text-center">
+        <div class="col-xs-16">---</div>
+        <div class="col-xs-16">---</div>
+        <a href="{{ url_for('main.upvote', band_id=band.id) }}">
+            <button type="button" class="btn btn-primary btn-lg text-justify" style="border:1px solid black"> UPVOTE
+            </button>
+        </a>
+        <a href="{{ url_for('main.report', band_id=band.id) }}">
+            <button type="button" class="btn btn-danger btn-xs text-justify" style="border:1px solid black"> REPORT
+            </button>
+        </a>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+{% endif %}
     {% endfor %}
 
 {% endblock %}

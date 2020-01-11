@@ -1,10 +1,16 @@
 {% extends 'bootstrap/base.html' %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='my_style.css')}}">
+{% endblock %}
 
 {% block title %}
     {% if title %}{{ title }}{% else %}{{ _('Welcome to the Band Names Database') }}{% endif %}
 {% endblock %}
 
 {% block navbar %}
+
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
@@ -14,13 +20,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('main.band_names') }}">Band Names</a>
+                <a class="navbar-brand" href="{{ url_for('main.random_band') }}">The Band Name Database!</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('main.random_band') }}">A Random Band</a></li>
+                    <li><a href="{{ url_for('main.random_band') }}">I Need A Band Name!</a></li>
                     <li><a href="{{ url_for('main.band_names') }}">Submit Your Band Names!</a></li>
-                    <li><a href="{{ url_for('main.explore') }}">Top 25 bands by score</a></li>
+                    <li><a href="{{ url_for('main.explore') }}">Top 25 Band Names By Votes!</a></li>
                     </u>
             </div>
         </div>
@@ -28,18 +34,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-
+{% block app_content %}
+{% endblock %}
+<div class="container text-center" style="background-color:#222;">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-            <div class="alert alert-info" role="alert">{{ message }}</div>
+    <div class="alert alert-dark" role="alert"><p style="color:white">{{ message }}</p></div>
             {% endfor %}
         {% endif %}
         {% endwith %}
-
-        {# application content needs to be provided in the app_content block #}
-        {% block app_content %}{% endblock %}
     </div>
 {% endblock %}
 

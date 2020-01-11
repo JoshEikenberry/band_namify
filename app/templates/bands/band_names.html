@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
@@ -10,20 +10,41 @@
         <title>Title</title>
     </head>
     <body>
-    bands! Gimme a band name:
-     <form action="" method="post">
+    <div class="container-fluid">
+        <div class="col-xs-12 text-center"><p style="font-size:3vh;color:white;">Got a great band name? Submit it
+            below! </p></div>
+        <div class="col-xs-4 text-center"></div>
+        <div class="col-xs-4 text-center"><i style="font-size:1.5vh;color:white">(Try not to make it offensive.)</i>
+        </div>
+        <div class="col-xs-4 text-center"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="col-xs-2 text-center"></div>
+        <div class="col-xs-8 text-center">
+            <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
+                <p style="font-size:2vh;color:black;">
             {{ form.band_name.label }}<br>
-            {{ form.band_name(cols=32, rows=4) }}<br>
+                    {{ form.band_name(rows=2) }}<br>
             {% for error in form.band_name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
 
+                </p>
+        </div>
+        <div class="col-xs-2 text-center"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="col-xs-4 text-center"></div>
+        <div class="col-xs-4 text-center">
+            <button type="button" class="btn btn-dark btn-lg">{{ form.submit() }}</button>
+        </div>
+        <div class="col-xs-4 text-center"></div>
+    </div>
+    </form>
          {% for bands in all_bands %}
-         <p> {{ all_bands.band_name }} </p>
+
+    <p> {{ all_bands.band_name }} </p>
 
          {% endfor %}
     </body>

@@ -5,16 +5,28 @@ from app.main.forms import BandNameForm
 from app.models import BandName
 from app.main import bp
 from sqlalchemy.sql.expression import func
+from sqlalchemy import exc
+from string import capwords
+
+
+# note: pep8 is grumpy about the boolean equalities; for some reason that's the only way it works. don't touch.
+
+@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/random', methods=['GET', 'POST'])
+def random_band():
+    a_random_band = BandName.query.filter(BandName.blacklisted == False).order_by(func.random()).limit(1)
+    return render_template('index.html', title='A Random Band Name!', bands=a_random_band, show_buttons=True)
 
 
 @bp.route('/explore')
 def explore():
-    bands = BandName.query.filter(BandName.blacklisted != True).order_by(BandName.votes.desc()).limit(25)
-    return render_template('index.html', title='Top 25 Bands by number of Votes', bands=bands)
+    top_scoring_bands = BandName.query.filter(BandName.blacklisted != True).order_by(BandName.votes.desc()).limit(25)
+    return render_template('index.html', title='Top 25 Bands by number of Votes', bands=top_scoring_bands,
+                           show_buttons=False)
 
 
 @bp.route('/upvote/<b32:band_id>')
-@limiter.limit('1/second')
+@limiter.limit('5/second')
 def upvote(band_id):
     upvoted_band = BandName.query.filter_by(id=band_id).first()
     flash(str(upvoted_band.band_name) + ' thanks you for your support.')
@@ -56,21 +68,19 @@ def whitelist(band_id):
     return redirect(url_for('main.admin_blacklist', ))
 
 
-@bp.route('/', methods=['GET', 'POST'])
-@bp.route('/random', methods=['GET', 'POST'])
-def random_band():
-    random_band = BandName.query.filter(BandName.blacklisted == False).order_by(func.random()).limit(1)
-    return render_template('index.html', title='A Random Band Name!', bands=random_band)
-
-
 @bp.route('/bands', methods=['GET', 'POST'])
 def band_names():
     form = BandNameForm()
     if form.validate_on_submit():
-        band = BandName(band_name=form.band_name.data)
-        db.session.add(band)
-        db.session.commit()
-        flash('Thanks for the submission!')
+        band = BandName(band_name=capwords(form.band_name.data))
+        try:
+            db.session.add(band)
+            db.session.commit()
+            flash(str(band.band_name) + ' has been added to the database!')
+        except exc.IntegrityError as e:
+            db.session().rollback()
+            flash(str(band.band_name) + ' has already been added to the database!')
+
         return redirect('/bands')
     all_bands = BandName.all_bands_submitted
     return render_template('bands/band_names.html', title='Band Names!', form=form, bands=all_bands)
