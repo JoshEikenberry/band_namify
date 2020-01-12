@@ -1,12 +1,11 @@
 {% extends 'bootstrap/base.html' %}
 {% block styles %}
 {{super()}}
-<link rel="stylesheet"
-      href="{{url_for('static', filename='my_style.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='my_style.css')}}">
 {% endblock %}
 
 {% block title %}
-    {% if title %}{{ title }}{% else %}{{ _('Welcome to the Band Names Database') }}{% endif %}
+{% if title %}{{ title }}{% else %}{{ 'Welcome to the Band Names Database' }}{% endif %}
 {% endblock %}
 
 {% block navbar %}
@@ -26,7 +25,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('main.random_band') }}">I Need A Band Name!</a></li>
                     <li><a href="{{ url_for('main.band_names') }}">Submit Your Band Names!</a></li>
-                    <li><a href="{{ url_for('main.explore') }}">Top 25 Band Names By Votes!</a></li>
+                    <li><a href="{{ url_for('main.top25') }}">Top 25 Band Names By Votes!</a></li>
                     </u>
             </div>
         </div>
@@ -45,5 +44,14 @@
         {% endif %}
         {% endwith %}
     </div>
+<p style="color:#222">.</p>
+<hr>
+<p style="color:#222">.</p>
+<div class="container-fluid">
+    <div class="row" style="text-align:center;"><i style="color:#666">"Give me your best band names. Let's make a big
+        pile of awesome band names." - Dr. Brent</i></div>
+</div>
+
+
 {% endblock %}
 

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content %}
+<h3 style="text-align:center;font-size:2.5vh;color:white;">The Top 25 Greatest Band Names Never Used</h3>
+{% for band in bands %}
+<div class="container-fluid">
+    <div class="row" style="
+    display:flex;align-items:center;
+    opacity:1.0;
+    margin:auto;
+    background-color:#111;
+    border:2px solid black;">
+        <div class="container-fluid">
+            <hr>
+            <div class="row" style="text-align:center;font-size:2em;color:white;">{{ band.band_name }}</div>
+            <hr>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}
+

@@ -19,20 +19,18 @@
         <div class="col-xs-4 text-center"></div>
     </div>
     <div class="container-fluid">
-        <div class="col-xs-2 text-center"></div>
-        <div class="col-xs-8 text-center">
+        <div class="text-center" style="font-size:3vh">
             <form action="" method="post">
-        {{ form.hidden_tag() }}
-                <p style="font-size:2vh;color:black;">
-            {{ form.band_name.label }}<br>
-                    {{ form.band_name(rows=2) }}<br>
+                {{ form.hidden_tag() }}{{ form.band_name(rows=3, cols=25) }}
             {% for error in form.band_name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-
-                </p>
         </div>
-        <div class="col-xs-2 text-center"></div>
+        >
+
+
+
+        </div>
     </div>
     <div class="container-fluid">
         <div class="col-xs-4 text-center"></div>

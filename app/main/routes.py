@@ -18,10 +18,10 @@ def random_band():
     return render_template('index.html', title='A Random Band Name!', bands=a_random_band, show_buttons=True)
 
 
-@bp.route('/explore')
-def explore():
+@bp.route('/top25')
+def top25():
     top_scoring_bands = BandName.query.filter(BandName.blacklisted != True).order_by(BandName.votes.desc()).limit(25)
-    return render_template('index.html', title='Top 25 Bands by number of Votes', bands=top_scoring_bands,
+    return render_template('top25.html', title='Top 25 Bands by number of Votes', bands=top_scoring_bands,
                            show_buttons=False)
 
 
@@ -80,8 +80,6 @@ def band_names():
         except exc.IntegrityError as e:
             db.session().rollback()
             flash(str(band.band_name) + ' has already been added to the database!')
-
-        return redirect('/bands')
-    all_bands = BandName.all_bands_submitted
-    return render_template('bands/band_names.html', title='Band Names!', form=form, bands=all_bands)
-
+        return redirect('/random')
+    #    all_bands = BandName.all_bands_submitted
+    return render_template('bands/band_names.html', title='Band Names!', form=form)
