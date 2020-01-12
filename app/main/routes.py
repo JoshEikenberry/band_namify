@@ -11,12 +11,12 @@ from string import capwords
 
 # note: pep8 is grumpy about the boolean equalities; for some reason that's the only way it works. don't touch.
 
+
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/random', methods=['GET', 'POST'])
 def random_band():
     a_random_band = BandName.query.filter(BandName.blacklisted == False).order_by(func.random()).limit(1)
     return render_template('index.html', title='A Random Band Name!', bands=a_random_band, show_buttons=True)
-
 
 @bp.route('/top25')
 def top25():
@@ -42,7 +42,6 @@ def report(band_id):
     reported_band.report_band(band_id=band_id)
     return redirect(url_for('main.random_band',))
 
-
 @bp.route('/admin/blacklist')
 @login_required
 def admin_blacklist():
@@ -67,7 +66,6 @@ def whitelist(band_id):
     whitelisted_band.whitelist(band_id=band_id)
     return redirect(url_for('main.admin_blacklist', ))
 
-
 @bp.route('/bands', methods=['GET', 'POST'])
 def band_names():
     form = BandNameForm()
@@ -81,5 +79,4 @@ def band_names():
             db.session().rollback()
             flash(str(band.band_name) + ' has already been added to the database!')
         return redirect('/random')
-    #    all_bands = BandName.all_bands_submitted
     return render_template('bands/band_names.html', title='Band Names!', form=form)

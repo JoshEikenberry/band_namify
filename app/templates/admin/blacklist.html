@@ -4,9 +4,10 @@
 {% block app_content %}
 <br>
 {% for band in bands %}
-<p> {{ band.band_name }} // votes: {{ band.votes }} // reports: {{ band.reports }} // blacklisted? {{ band.blacklisted
-    }} // whitelisted? {{ band.whitelisted }} // <a href="{{ url_for('main.blacklist', band_id=band.id) }}"> Blacklist
-        Toggle </a> <a href="{{ url_for('main.whitelist', band_id=band.id) }}"> Whitelist Toggle </a></p>
+<p style="color:white;font-size:2em;"> {{ band.band_name }} // votes: {{ band.votes }} // reports: {{ band.reports }} //
+    blacklisted? {{ band.blacklisted
+    }} // whitelisted? {{ band.whitelisted }} // <a href="{{ url_for('main.blacklist', band_id=band.id) }}">
+        Blacklist! </a> <a href="{{ url_for('main.whitelist', band_id=band.id) }}"> Whitelist! </a></p>
 {% endfor %}
 
 {% endblock %}
