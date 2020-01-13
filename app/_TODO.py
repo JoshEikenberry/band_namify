@@ -1,8 +1,7 @@
 """
 Phase I Functionlity needed:
 
-
-clean up the codebase - remove placeholder comments, example code, tutorial bits
+nuke existing db and admin users, create "prod" sqlite db, create backup
 deploy - figure out how NFS.net works, SSH, deployment scripts, bash scripts, etc
 probably need a logo
 
@@ -28,6 +27,7 @@ text to speech stream - text to speech engine reading random band names over a b
 
 
 finished tasks:
+clean up the codebase - remove placeholder comments, example code, tutorial bits
 figure out how to create an admin account in the db directly for security sake ** can do flask db commit in env at site deploy
 submit band name page needs some styling work - good enough
 buttons look ugly on upbote/report - good enough
